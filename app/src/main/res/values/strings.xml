@@ -4,7 +4,8 @@
     <string name="button_config_tables">config tables</string>
     <string name="button_config_schedules">config schedules</string>
     <string name="title_select_tables">How many tables are there?</string>
-    <string name="action_add_tables">Add Table</string>
+    <string name="action_add_tables">Add table</string>
+    <string name="action_add_meal_time">Add meal time</string>
     <string name="action_save_tables">save table</string>
     <string name="empty_tables_list">Please, add tables</string>
     <string name="button_accept">accept</string>
@@ -13,5 +14,7 @@
     <string name="add_table_dialog_people">People in each table</string>
     <string name="dialog_hint_tables">5</string>
     <string name="dialog_hint_people">4</string>
-    <string name="tables_list_item">%1$d tables for %2$d people each</string>
+    <string name="tables_list_item">for %1$d people there are %2$d tables</string>
+    <string name="title_select_meal_times">Please, select meal times</string>
+    <string name="empty_meal_times_list">Meal times list empty</string>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_config_tables"
+    android:id="@+id/activity_config_schedules"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,37 +14,37 @@
         android:layout_margin="0dp">
 
         <TextView
-            android:id="@+id/tv_select_tables_title"
+            android:id="@+id/tv_select_schedules_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="16dp"
-            android:text="@string/title_select_tables"
-            android:textAlignment="center"
+            android:text="@string/title_select_meal_times"
             android:background="@color/colorPrimaryLight"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_select_tables_title"
+            android:layout_below="@id/tv_select_schedules_title"
             android:layout_marginTop="16dp">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_tables_list"
+                android:id="@+id/rv_meals_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/tv_empty_tables_list"
+                android:id="@+id/tv_empty_meals_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@string/empty_tables_list"
+                android:text="@string/empty_meal_times_list"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorAccent"
                 android:layout_gravity="center_horizontal"
@@ -58,8 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="@string/action_add_tables"
-        android:onClick="openDialogAddTable"
+        android:contentDescription="@string/action_add_meal_time"
+        android:onClick="openDialogAddTime"
         android:src="@drawable/fav_plus"
         app:backgroundTint="@color/colorAccent"
         app:borderWidth="0dp"

@@ -1,9 +1,11 @@
-package com.adiaz.managetables;
+package com.adiaz.managetables.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -14,12 +16,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.adiaz.managetables.R;
+import com.adiaz.managetables.data.ManageTablesContract;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by toni on 02/03/2017.
- */
+/* Created by toni on 02/03/2017. */
 
 public class AddTableDialogFragment extends DialogFragment {
 
@@ -37,8 +40,6 @@ public class AddTableDialogFragment extends DialogFragment {
 		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
 		View view = layoutInflater.inflate(R.layout.dialog_add_table, null);
 		ButterKnife.bind(this, view);
-
-
 		TextWatcher textWatcher = new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -53,9 +54,6 @@ public class AddTableDialogFragment extends DialogFragment {
 		};
 		tvPeople.addTextChangedListener(textWatcher);
 		tvTables.addTextChangedListener(textWatcher);
-
-
-
 		builder.setView(view);
 		builder.setPositiveButton(getString(R.string.button_accept), new DialogInterface.OnClickListener() {
 			@Override
@@ -85,7 +83,12 @@ public class AddTableDialogFragment extends DialogFragment {
 	private void addTable() {
 		Integer tables = Integer.parseInt(tvTables.getText().toString());
 		Integer people = Integer.parseInt(tvPeople.getText().toString());
-		((ConfigTablesActivity)getActivity()).addTable(tables, people);
+		Uri uri = ManageTablesContract.RestaurantTablesEntry.URI;
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(ManageTablesContract.RestaurantTablesEntry.COLUMN_NUMBER_TABLES, tables);
+		contentValues.put(ManageTablesContract.RestaurantTablesEntry.COLUMN_NUMBER_PEOPLE, people);
+		getActivity().getContentResolver().insert(uri, contentValues);
+		dismiss();
 	}
 
 	@Override
