@@ -12,8 +12,9 @@ public class ManageTablesContract {
 	public static final String AUTHORITY = "com.adiaz.managetables";
 	public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 	public static final String PATH_TABLE = "table";
+	public static final String PATH_MEAL = "meal";
 
-	public static final class RestaurantTablesEntry implements BaseColumns {
+	public static final class TableEntry implements BaseColumns {
 
 		public static final Uri URI = BASE_URI.buildUpon().appendPath(PATH_TABLE).build();
 
@@ -31,9 +32,32 @@ public class ManageTablesContract {
 				COLUMN_NUMBER_PEOPLE
 		);
 
-		public static Uri makeUriFromTableId(long idNew) {
-			String idNewStr = Long.toString(idNew);
-			return URI.buildUpon().appendPath(idNewStr).build();
+		public static Uri makeUriFromTableId(long idTable) {
+			String idTableStr = Long.toString(idTable);
+			return URI.buildUpon().appendPath(idTableStr).build();
 		}
+	}
+
+	public static final class MealsEntry implements BaseColumns {
+
+		public static final Uri URI = BASE_URI.buildUpon().appendPath(PATH_MEAL).build();
+
+		public static final String TABLE_NAME = "meals";
+		public static final String COLUMN_MEAL_HOUR = "column_meal_hour";
+		public static final String COLUMN_MEAL_MINUTES = "column_meal_minutes";
+
+		public static final int POSITION_ID = 0;
+		public static final int POSITION_HOUR = 1;
+		public static final int POSITION_MINUTES = 2;
+		public static final ImmutableList<String> TABLES_COLUMNS = ImmutableList.of(
+				_ID,
+				COLUMN_MEAL_HOUR,
+				COLUMN_MEAL_MINUTES
+		);
+		public static Uri makeUriFromMealId(long idMeal) {
+			String idMealStr = Long.toString(idMeal);
+			return URI.buildUpon().appendPath(idMealStr).build();
+		}
+
 	}
 }

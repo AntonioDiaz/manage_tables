@@ -83,10 +83,10 @@ public class AddTableDialogFragment extends DialogFragment {
 	private void addTable() {
 		Integer tables = Integer.parseInt(tvTables.getText().toString());
 		Integer people = Integer.parseInt(tvPeople.getText().toString());
-		Uri uri = ManageTablesContract.RestaurantTablesEntry.URI;
+		Uri uri = ManageTablesContract.TableEntry.URI;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ManageTablesContract.RestaurantTablesEntry.COLUMN_NUMBER_TABLES, tables);
-		contentValues.put(ManageTablesContract.RestaurantTablesEntry.COLUMN_NUMBER_PEOPLE, people);
+		contentValues.put(ManageTablesContract.TableEntry.COLUMN_NUMBER_TABLES, tables);
+		contentValues.put(ManageTablesContract.TableEntry.COLUMN_NUMBER_PEOPLE, people);
 		getActivity().getContentResolver().insert(uri, contentValues);
 		dismiss();
 	}

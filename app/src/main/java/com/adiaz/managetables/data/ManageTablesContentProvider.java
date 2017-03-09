@@ -10,7 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.adiaz.managetables.data.ManageTablesContract.RestaurantTablesEntry;
+import static com.adiaz.managetables.data.ManageTablesContract.MealsEntry;
+import static com.adiaz.managetables.data.ManageTablesContract.TableEntry;
 
 /* Created by toni on 07/03/2017. */
 
@@ -22,6 +23,8 @@ public class ManageTablesContentProvider extends ContentProvider {
 
 	public static final int TABLES = 100;
 	public static final int TABLES_WITH_ID = 101;
+	public static final int MEALS = 200;
+	public static final int MEALS_WITH_ID = 201;
 
 	private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -29,6 +32,8 @@ public class ManageTablesContentProvider extends ContentProvider {
 		UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		uriMatcher.addURI(ManageTablesContract.AUTHORITY, ManageTablesContract.PATH_TABLE, TABLES);
 		uriMatcher.addURI(ManageTablesContract.AUTHORITY, ManageTablesContract.PATH_TABLE + "/#", TABLES_WITH_ID);
+		uriMatcher.addURI(ManageTablesContract.AUTHORITY, ManageTablesContract.PATH_MEAL, MEALS);
+		uriMatcher.addURI(ManageTablesContract.AUTHORITY, ManageTablesContract.PATH_MEAL + "/#", MEALS_WITH_ID);
 		return uriMatcher;
 	}
 
@@ -46,7 +51,10 @@ public class ManageTablesContentProvider extends ContentProvider {
 		SQLiteDatabase database = mDbHelper.getReadableDatabase();
 		switch (sUriMatcher.match(uri)) {
 			case TABLES:
-				cursorReturn = database.query(RestaurantTablesEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+				cursorReturn = database.query(TableEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+				break;
+			case MEALS:
+				cursorReturn = database.query(MealsEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 				break;
 			default:
 				throw new UnsupportedOperationException("error " + uri);
@@ -67,12 +75,20 @@ public class ManageTablesContentProvider extends ContentProvider {
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 		Uri uriReturn = null;
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		switch (sUriMatcher.match(uri)) {
 			case TABLES:
-				SQLiteDatabase db = mDbHelper.getWritableDatabase();
-				long idNew = db.insert(RestaurantTablesEntry.TABLE_NAME, null, contentValues);
-				if (idNew>0) {
-					uriReturn = RestaurantTablesEntry.makeUriFromTableId(idNew);
+				long idNewTable = db.insert(TableEntry.TABLE_NAME, null, contentValues);
+				if (idNewTable>0) {
+					uriReturn = TableEntry.makeUriFromTableId(idNewTable);
+				} else {
+					throw new SQLException("error on insert " + uri);
+				}
+				break;
+			case MEALS:
+				long idNewMeal = db.insert(MealsEntry.TABLE_NAME, null, contentValues);
+				if (idNewMeal>0) {
+					uriReturn = MealsEntry.makeUriFromMealId(idNewMeal);
 				} else {
 					throw new SQLException("error on insert " + uri);
 				}
@@ -89,13 +105,19 @@ public class ManageTablesContentProvider extends ContentProvider {
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
 		int deletes;
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		switch (sUriMatcher.match(uri)) {
 			case TABLES_WITH_ID:
-				SQLiteDatabase db = mDbHelper.getWritableDatabase();
-				String id = uri.getPathSegments().get(1);
-				String whereClause = "_id = ?";
-				String[] whereArgs = new String[]{id};
-				deletes = db.delete(RestaurantTablesEntry.TABLE_NAME, whereClause, whereArgs);
+				String idTables = uri.getPathSegments().get(1);
+				String whereClauseTables = "_id = ?";
+				String[] whereArgsTables = new String[]{idTables};
+				deletes = db.delete(TableEntry.TABLE_NAME, whereClauseTables, whereArgsTables);
+				break;
+			case MEALS_WITH_ID:
+				String idMeals = uri.getPathSegments().get(1);
+				String whereClauseMeals = "_id = ?";
+				String[] whereArgsMeals = new String[]{idMeals};
+				deletes = db.delete(TableEntry.TABLE_NAME, whereClauseMeals, whereArgsMeals);
 				break;
 			default:
 				throw new UnsupportedOperationException("error " + uri);

@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -41,7 +40,6 @@ public class ConfigTablesActivity extends AppCompatActivity
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG, "onCreate: 01");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_config_tables);
 		ButterKnife.bind(this);
@@ -60,7 +58,7 @@ public class ConfigTablesActivity extends AppCompatActivity
 			@Override
 			public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 				Tables tables = mAdapter.getTableAtPosition(viewHolder.getAdapterPosition());
-				Uri uri = ManageTablesContract.RestaurantTablesEntry.makeUriFromTableId(tables.getId());
+				Uri uri = ManageTablesContract.TableEntry.makeUriFromTableId(tables.getId());
 				getContentResolver().delete(uri, null, null);
 			}
 		}).attachToRecyclerView(rvTables);
@@ -98,10 +96,10 @@ public class ConfigTablesActivity extends AppCompatActivity
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri uri = ManageTablesContract.RestaurantTablesEntry.URI;
-		ImmutableList<String> tablesColumns = ManageTablesContract.RestaurantTablesEntry.TABLES_COLUMNS;
+		Uri uri = ManageTablesContract.TableEntry.URI;
+		ImmutableList<String> tablesColumns = ManageTablesContract.TableEntry.TABLES_COLUMNS;
 		String[] projection = tablesColumns.toArray(new String[]{});
-		String orderField = ManageTablesContract.RestaurantTablesEntry.COLUMN_NUMBER_PEOPLE + " asc";
+		String orderField = ManageTablesContract.TableEntry.COLUMN_NUMBER_PEOPLE + " asc";
 		return new CursorLoader(this, uri, projection, null, null, orderField);
 	}
 

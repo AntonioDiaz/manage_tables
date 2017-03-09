@@ -37,8 +37,8 @@ class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesViewHolder>
 	@Override
 	public void onBindViewHolder(TablesViewHolder holder, int position) {
 		if (cursor !=null && cursor.moveToPosition(position)) {
-			int people = cursor.getInt(ManageTablesContract.RestaurantTablesEntry.POSITION_PEOPLE);
-			int tables = cursor.getInt(ManageTablesContract.RestaurantTablesEntry.POSITION_TABLES);
+			int people = cursor.getInt(ManageTablesContract.TableEntry.POSITION_PEOPLE);
+			int tables = cursor.getInt(ManageTablesContract.TableEntry.POSITION_TABLES);
 			String listItemTitle = context.getString(R.string.tables_list_item, people, tables);
 			holder.textViewTable.setText(listItemTitle);
 		}
