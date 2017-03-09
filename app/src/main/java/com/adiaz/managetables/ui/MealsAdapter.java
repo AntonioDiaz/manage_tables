@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.adiaz.managetables.R;
 import com.adiaz.managetables.data.ManageTablesContract;
+import com.adiaz.managetables.entities.Meals;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +51,14 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder> 
 	public void setmCursor(Cursor mCursor) {
 		this.mCursor = mCursor;
 		notifyDataSetChanged();
+	}
+
+	public Meals getMealAtPosition(int adapterPosition) {
+		Meals meals = null;
+		if (mCursor!=null && mCursor.moveToPosition(adapterPosition)) {
+			meals = new Meals(mCursor);
+		}
+		return meals;
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {

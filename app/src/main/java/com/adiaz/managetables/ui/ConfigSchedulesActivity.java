@@ -1,6 +1,7 @@
 package com.adiaz.managetables.ui;
 
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -9,11 +10,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.adiaz.managetables.R;
+import com.adiaz.managetables.entities.Meals;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,17 +35,32 @@ public class ConfigSchedulesActivity extends AppCompatActivity implements Loader
 	@BindView(R.id.tv_empty_meals_list)
 	TextView tvEmptyMealsList;
 
-	private MealsAdapter adapter;
+	private MealsAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_config_schedules);
 		ButterKnife.bind(this);
-		adapter = new MealsAdapter(this);
-		rvMeals.setAdapter(adapter);
+		mAdapter = new MealsAdapter(this);
+		rvMeals.setAdapter(mAdapter);
 		rvMeals.setHasFixedSize(false);
 		rvMeals.setLayoutManager(new LinearLayoutManager(this));
+
+		new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+			@Override
+			public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+				return false;
+			}
+
+			@Override
+			public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+				Meals meals = mAdapter.getMealAtPosition(viewHolder.getAdapterPosition());
+				Uri uri = MealsEntry.makeUriFromMealId(meals.getId());
+				Log.d(TAG, "onSwiped: " + uri.toString());
+				getContentResolver().delete(uri, null, null);
+			}
+		}).attachToRecyclerView(rvMeals);
 
 		getSupportLoaderManager().initLoader(ID_LOADER_MEALS, null, this);
 
@@ -68,7 +87,7 @@ public class ConfigSchedulesActivity extends AppCompatActivity implements Loader
 
 	private void refreshAdapter(Cursor cursor) {
 		if (cursor!=null && cursor.getCount()>0) {
-			adapter.setmCursor(cursor);
+			mAdapter.setmCursor(cursor);
 			rvMeals.setVisibility(View.VISIBLE);
 			tvEmptyMealsList.setVisibility(View.INVISIBLE);
 		} else {

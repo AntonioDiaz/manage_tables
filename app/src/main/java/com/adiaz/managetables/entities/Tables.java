@@ -5,9 +5,7 @@ import android.database.Cursor;
 
 import static com.adiaz.managetables.data.ManageTablesContract.TableEntry;
 
-/**
- * Created by toni on 07/03/2017.
- */
+/* Created by toni on 07/03/2017. */
 
 public class Tables {
 

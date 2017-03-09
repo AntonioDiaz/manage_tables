@@ -117,7 +117,7 @@ public class ManageTablesContentProvider extends ContentProvider {
 				String idMeals = uri.getPathSegments().get(1);
 				String whereClauseMeals = "_id = ?";
 				String[] whereArgsMeals = new String[]{idMeals};
-				deletes = db.delete(TableEntry.TABLE_NAME, whereClauseMeals, whereArgsMeals);
+				deletes = db.delete(MealsEntry.TABLE_NAME, whereClauseMeals, whereArgsMeals);
 				break;
 			default:
 				throw new UnsupportedOperationException("error " + uri);
