@@ -14,10 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.adiaz.managetables.R;
-import com.adiaz.managetables.data.ManageTablesContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.adiaz.managetables.data.ManageTablesContract.MealsEntry;
 
 public class ConfigSchedulesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -78,9 +79,9 @@ public class ConfigSchedulesActivity extends AppCompatActivity implements Loader
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		String sortOrder = "";
-		String[] projection = ManageTablesContract.MealsEntry.TABLES_COLUMNS.toArray(new String[]{});
-		return new CursorLoader(this, ManageTablesContract.MealsEntry.URI, projection,null, null, sortOrder);
+		String sortOrder = MealsEntry.COLUMN_MEAL_HOUR + " asc ";
+		String[] projection = MealsEntry.TABLES_COLUMNS.toArray(new String[]{});
+		return new CursorLoader(this, MealsEntry.URI, projection,null, null, sortOrder);
 	}
 
 	@Override
