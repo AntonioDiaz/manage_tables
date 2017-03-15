@@ -1,21 +1,41 @@
 <resources>
     <string name="app_name">Manage Tables</string>
-    <string name="config_app">Config APP</string>
-    <string name="button_config_tables">config tables</string>
-    <string name="button_config_schedules">config schedules</string>
+    <string name="title_config_app">Config app</string>
     <string name="title_select_tables">How many tables are there?</string>
+    <string name="title_select_meal_times">Please, select meal times</string>
+    <string name="title_new_resevation">New Reservation</string>
+
+    <string name="welcome_msg">Welcome! Here you will find help to manage the bookings of your restaurant.</string>
+
+    <string name="button_config_tables">config tables</string>
+    <string name="button_config_schedules">config meals times</string>
     <string name="action_add_tables">Add table</string>
     <string name="action_add_meal_time">Add meal time</string>
     <string name="action_save_tables">save table</string>
     <string name="empty_tables_list">Please, add tables</string>
     <string name="button_accept">accept</string>
+    <string name="button_create_config">create config</string>
     <string name="button_cancel">cancel</string>
     <string name="add_table_dialog_tables">Number of tables</string>
     <string name="add_table_dialog_people">People in each table</string>
     <string name="dialog_hint_tables">5</string>
     <string name="dialog_hint_people">4</string>
-    <string name="tables_list_item">for %1$d people there are %2$d tables</string>
+    <string name="tables_list_item">%1$d tables for %2$d people</string>
     <string name="meals_list_item">%1$02d:%2$02d</string>
-    <string name="title_select_meal_times">Please, select meal times</string>
     <string name="empty_meal_times_list">Meal times list empty</string>
+    <string name="functionalities">Functionalities:</string>
+    <string name="functionalities_01">\u2022 Manager your <b>reservations</b></string>
+    <string name="functionalities_02">\u2022 Send <b>reminder</b> to customers</string>
+    <string name="functionalities_03">\u2022 Check <b>availability</b> on any day</string>
+    <string name="first_time">\u002A Before using the app it is necessary to config some parameters</string>
+    <string name="button_new_reservation">new reservation</string>
+    <string name="button_view_reservation">view reservations</string>
+    <string name="example_day" translatable="false">May 12, 2017</string>
+    <string name="example_tables" translatable="false">4 tables</string>
+    <string name="config_app_msg">\u002A To use the app it is necesary first to config the tables and the meals times off the restaurant.</string>
+    <string name="config_tables_summary">Config tables summary</string>
+    <string name="config_times_summary">Config times summary</string>
+    <string name="config_alert">It is necessary to set at least one table and one meal time.</string>
+    <string name="key_config_created">key_config_created</string>
+
 </resources>

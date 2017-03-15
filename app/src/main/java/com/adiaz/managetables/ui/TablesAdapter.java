@@ -30,7 +30,7 @@ class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesViewHolder>
 	@Override
 	public TablesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-		View view = layoutInflater.inflate(R.layout.tables_list_item, parent, false);
+		View view = layoutInflater.inflate(R.layout.list_item_tables, parent, false);
 		return new TablesViewHolder(view);
 	}
 
@@ -39,7 +39,7 @@ class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesViewHolder>
 		if (cursor !=null && cursor.moveToPosition(position)) {
 			int people = cursor.getInt(ManageTablesContract.TableEntry.POSITION_PEOPLE);
 			int tables = cursor.getInt(ManageTablesContract.TableEntry.POSITION_TABLES);
-			String listItemTitle = context.getString(R.string.tables_list_item, people, tables);
+			String listItemTitle = context.getString(R.string.tables_list_item, tables, people);
 			holder.textViewTable.setText(listItemTitle);
 		}
 	}

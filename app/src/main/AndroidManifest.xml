@@ -8,9 +8,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"
-                  android:label="@string/app_name"
-                  android:theme="@style/AppTheme.ManageTables">
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.ManageTables">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,6 +27,17 @@
             android:exported="false"/>
 
         <activity android:name=".ui.ConfigSchedulesActivity">
+        </activity>
+        <activity android:name=".ui.ConfigAppActivity">
+        </activity>
+        <activity android:name=".ui.NewReservationActivity"
+                  android:theme="@style/AppTheme.ManageTables"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity">
+
+            </meta-data>
         </activity>
     </application>
 
